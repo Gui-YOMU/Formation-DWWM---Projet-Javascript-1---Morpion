@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/styles/style.css">
+    <title>Morpion</title>
+</head>
+
+<body>
+    <header>
+        <h1>Le Morpion</h1>
+    </header>
+    <main>
+        <section id="rules">
+            <article>
+                <h2>Les règles du jeu</h2>
+                <p>Chaque joueur chacun son tour doit cliquer sur l'une des cases vides du tableau pour afficher son
+                    symbole (X ou O).</p>
+                <p>L'objectif est d'aligner 3 de ses symboles dans une même ligne, colonne ou diagonale, ce qui rapporte
+                    1 point.</p>
+            </article>
+            <form id="settings">
+                <div class="settings">
+                    <label for="playerOneName">Entrez votre nom</label>
+                    <input type="text" id="playerOneName">
+                </div>
+                <div class="settings">
+                    <p>Choisissez un adversaire : </p>
+                    <div class="radio-container">
+                        <label for="player">Joueur</label>
+                        <input type="radio" id="player" name="opponent" value="player">
+                    </div>
+                    <div class="radio-container">
+                        <label for="computer">Ordinateur</label>
+                        <input type="radio" id="computer" name="opponent" value="computer">
+                    </div>
+                </div>
+                <div id="playerTwoNameContainer" class="settings">
+                    <label for="playerTwoName">Entrez le nom de l'adversaire</label>
+                    <input type="text" id="playerTwoName">
+                </div>
+                <!-- <div class="settings">
+                    <p>Choisissez un jeu : </p>
+                    <div class="radio-container">
+                        <label for="tictactoe">Morpion</label>
+                        <input type="radio" id="tictactoe" name="game">
+                    </div>
+                    <div class="radio-container">
+                        <label for="connectFour">Puissance 4</label>
+                        <input type="radio" id="connectFour" name="game">
+                    </div>
+                </div> -->
+                <button>Start</button>
+            </form>
+        </section>
+        <div id="gameScreen">
+            <div id="gridDisplay"></div>
+            <div id="scoreDisplay">
+                <p id="scorePlayer"></p>
+                <p id="scoreOpponent"></p>
+            </div>
+        </div>
+        <dialog>
+            <h2>Fin du jeu</h2>
+            <p id="winner"></p>
+            <p>Voulez-vous rejouer ?</p>
+            <div>
+                <button id="restart">Oui</button>
+                <button id="home">Non</button>
+            </div>
+        </dialog>
+    </main>
+    <footer>
+
+    </footer>
+
+    <script src="./assets/scripts/script.js"></script>
+</body>
+
+</html>
