@@ -5,6 +5,8 @@ let endWindow = document.querySelector("dialog")
 let scorePlayerDisplay = document.querySelector("#scorePlayer")
 let scoreOpponentDisplay = document.querySelector("#scoreOpponent")
 let playerTwoNameContainer = document.querySelector("#playerTwoNameContainer")
+let titleOne = document.querySelector("h1")
+let titleTwo = document.querySelector("#connect4")
 let connectFourHorizontalArray = [1, 2, 3, 4, 8, 9, 10, 11, 15, 16, 17, 18, 22, 23, 24, 25, 29, 30, 31, 32, 36, 37, 38, 39]
 let connectFourDiagonalArrayOne = [1, 2, 3, 4, 8, 9, 10, 11, 15, 16, 17, 18]
 let connectFourDiagonalArrayTwo = [4, 5, 6, 7, 11, 12, 13, 14, 18, 19, 20, 21]
@@ -20,12 +22,29 @@ let scorePlayer = 0
 let scoreOpponent = 0
 let victory = false
 
+document.querySelector("#computer").checked = true
+document.querySelector("#tictactoe").checked = true
+
 document.querySelector("#player").addEventListener("click", () => {
     playerTwoNameContainer.style.display = "flex"
 })
 
 document.querySelector("#computer").addEventListener("click", () => {
     playerTwoNameContainer.style.display = "none"
+})
+
+document.querySelector("#tictactoe").addEventListener("click", () => {
+    titleOne.style.display = "block"
+    titleTwo.style.display = "none"
+    document.querySelector("#tictactoeRules").style.display = "block"
+    document.querySelector("#connectFourRules").style.display = "none"
+})
+
+document.querySelector("#connectFour").addEventListener("click", () => {
+    titleOne.style.display = "none"
+    titleTwo.style.display = "block"
+    document.querySelector("#tictactoeRules").style.display = "none"
+    document.querySelector("#connectFourRules").style.display = "block"
 })
 
 function settingsSet() {
@@ -64,7 +83,7 @@ function gridCreation() {
                 }
                 player = false
                 opponent = true
-                if (counter < 9) {
+                if (counter < gridSize) {
                     opponentTurn()
                 }
             } else if (opponent) {
@@ -170,7 +189,7 @@ function tictactoeVictoryCheck() {
         endGame()
         return
     } else {
-        if (counter === 9 && victory === false) {
+        if (counter === gridSize && victory === false) {
             player = false
             opponent = false
             endGame()

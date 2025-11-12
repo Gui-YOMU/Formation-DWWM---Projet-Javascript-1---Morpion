@@ -2,9 +2,15 @@ header {
     padding: 20px;
 }
 
-h1 {
+header h1,
+header h2 {
     text-align: center;
     font-size: 70px;
+}
+
+#connect4,
+#connectFourRules {
+    display: none;
 }
 
 section#rules {

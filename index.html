@@ -11,15 +11,23 @@
 <body>
     <header>
         <h1>Le Morpion</h1>
+        <h1 id="connect4">Puissance 4</h2>
     </header>
     <main>
         <section id="rules">
             <article>
                 <h2>Les règles du jeu</h2>
-                <p>Chaque joueur chacun son tour doit cliquer sur l'une des cases vides du tableau pour afficher son
-                    symbole (X ou O).</p>
-                <p>L'objectif est d'aligner 3 de ses symboles dans une même ligne, colonne ou diagonale, ce qui rapporte
-                    1 point.</p>
+                <div id="tictactoeRules">
+                    <p>Chaque joueur chacun son tour doit cliquer sur l'une des cases vides du tableau pour afficher son
+                        symbole (X ou O).</p>
+                    <p>L'objectif est d'aligner 3 de ses symboles dans une même ligne, colonne ou diagonale, ce qui
+                        rapporte 1 point.</p>
+                </div>
+                <div id="connectFourRules">
+                    <p>Chaque joueur chacun son tour doit cliquer sur l'une des colonnes du tableau pour afficher sa couleur (jaune ou rouge) dans la case vide la plus basse.</p>
+                    <p>L'objectif est d'aligner 4 de ses couleurs dans une même ligne, colonne ou diagonale, ce qui
+                        rapporte 1 point.</p>
+                </div>
             </article>
             <form id="settings">
                 <div class="settings">
