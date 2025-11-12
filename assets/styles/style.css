@@ -59,12 +59,20 @@ div#gameScreen {
     display: none;
 }
 
-div#gridDisplay {
+div#gridDisplay.tictactoe {
     display: grid;
     margin: auto;
     width: 450px;
     grid-template-columns: repeat(3, 150px);
     grid-template-rows: repeat(3, 150px);
+}
+
+div#gridDisplay.connectFour {
+    display: grid;
+    margin: auto;
+    width: 525px;
+    grid-template-columns: repeat(7, 75px);
+    grid-template-rows: repeat(6, 75px);
 }
 
 div#gridDisplay div {
@@ -73,6 +81,14 @@ div#gridDisplay div {
     align-items: center;
     border: 3px solid black;
     font-size: 100px;
+}
+
+div#gridDisplay.tictactoe div {
+    font-size: 100px;
+}
+
+div#gridDisplay.connectFour div {
+    font-size: 50px;
 }
 
 div#gridDisplay div.win {
