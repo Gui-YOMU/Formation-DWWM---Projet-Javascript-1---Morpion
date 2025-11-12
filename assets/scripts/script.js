@@ -1,6 +1,7 @@
 let rulesDisplay = document.querySelector("#rules")
 let gameScreen = document.querySelector("#gameScreen")
 let gridDisplay = document.querySelector("#gridDisplay")
+let buttonDisplay = document.querySelector("#buttonDisplay")
 let endWindow = document.querySelector("dialog")
 let scorePlayerDisplay = document.querySelector("#scorePlayer")
 let scoreOpponentDisplay = document.querySelector("#scoreOpponent")
@@ -71,34 +72,43 @@ function gridCreation() {
         square = document.createElement("div")
         square.setAttribute("id", `square${i + 1}`)
         gridDisplay.appendChild(square)
-        square.addEventListener("click", function () {
-            if (player) {
-                if (gridType === "tictactoe") {
-                    this.textContent = "X"
-                    tictactoeVictoryCheck()
-                } else if (gridType === "connectFour") {
-                    this.textContent = "O"
-                    this.style.color = "red"
-                    connectFourVictoryCheck()
+        if (gridType === "tictactoe") {
+            square.addEventListener("click", function () {
+                if (player) {
+                    if (gridType === "tictactoe") {
+                        this.textContent = "X"
+                        tictactoeVictoryCheck()
+                    }
+                    player = false
+                    opponent = true
+                    if (counter < gridSize) {
+                        opponentTurn()
+                    }
+                } else if (opponent) {
+                    if (gridType === "tictactoe") {
+                        this.textContent = "O"
+                        tictactoeVictoryCheck()
+                    }
+                    opponent = false
+                    player = true
                 }
-                player = false
-                opponent = true
-                if (counter < gridSize) {
-                    opponentTurn()
-                }
-            } else if (opponent) {
-                if (gridType === "tictactoe") {
-                    this.textContent = "O"
-                    tictactoeVictoryCheck()
-                } else if (gridType === "connectFour") {
-                    this.textContent = "O"
-                    this.style.color = "yellow"
-                    connectFourVictoryCheck()
-                }
-                opponent = false
-                player = true
-            }
-        }, { once: true })
+            }, { once: true })
+        }
+    }
+}
+
+function buttonCreation() {
+    let columnButton = 0
+    if (gridType === "connectFour") {
+        for (let i = 0; i < 7; i++) {
+            columnButton = document.createElement("button")
+            columnButton.setAttribute("id", `button${i + 1}`)
+            columnButton.textContent = `${i + 1}`
+            buttonDisplay.appendChild(columnButton)
+            columnButton.addEventListener("click", () => {
+                token(i + 1)
+            })
+        }
     }
 }
 
@@ -108,14 +118,50 @@ function opponentTurn() {
     }
 }
 
-function randomize() {
-    do {
-        computerChoice = Math.floor((Math.random() * gridSize) + 1)
-    } while (document.getElementById(`square${computerChoice}`).textContent !== "")
-    if (victory == false) {
-        document.getElementById(`square${computerChoice}`).click()
+function token(column) {
+    for (let i = (column + 35); i >= 1; i = i - 7) {
+        if (document.getElementById(`square${i}`).textContent === "") {
+            if (player) {
+                document.getElementById(`square${i}`).textContent = "O"
+                document.getElementById(`square${i}`).style.color = "red"
+                connectFourVictoryCheck()
+                player = false
+                opponent = true
+                if (counter < gridSize) {
+                    opponentTurn()
+                }
+                break
+            } else if (opponent) {
+                document.getElementById(`square${i}`).textContent = "O"
+                document.getElementById(`square${i}`).style.color = "yellow"
+                connectFourVictoryCheck()
+                opponent = false
+                player = true
+                break
+            }
+        }
     }
-    return
+    if (opponent) {
+        opponentTurn()
+    }
+}
+
+function randomize() {
+    if (gridType === "tictactoe") {
+        do {
+            computerChoice = Math.floor((Math.random() * gridSize) + 1)
+        } while (document.getElementById(`square${computerChoice}`).textContent !== "")
+        if (victory == false) {
+            document.getElementById(`square${computerChoice}`).click()
+        }
+        return
+    } else if (gridType === "connectFour") {
+        computerChoice = Math.floor((Math.random() * 7) + 1)
+        if (victory == false) {
+            document.getElementById(`button${computerChoice}`).click()
+        }
+        return
+    }
 }
 
 document.querySelector("#settings").addEventListener("submit", (e) => {
@@ -125,6 +171,7 @@ document.querySelector("#settings").addEventListener("submit", (e) => {
     gridDisplay.replaceChildren()
     settingsSet()
     gridCreation()
+    buttonCreation()
     counter = 0
     player = true
     opponent = false
@@ -141,6 +188,8 @@ document.querySelector("#restart").addEventListener("click", () => {
     endWindow.close()
     gridDisplay.replaceChildren()
     gridCreation()
+    buttonDisplay.replaceChildren()
+    buttonCreation()
     counter = 0
     victory = false
     if (opponent) {
@@ -244,7 +293,12 @@ function connectFourVictoryCheck() {
             return
         }
     }
-
+    if (counter === gridSize && victory === false) {
+        player = false
+        opponent = false
+        endGame()
+        return
+    }
 }
 
 function endGame() {
