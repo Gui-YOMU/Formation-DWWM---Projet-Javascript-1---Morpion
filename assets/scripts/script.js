@@ -134,7 +134,7 @@ function buttonCreation() {
 
 function opponentTurn() {
     if (opponentType === "computer") {
-        setTimeout(randomize, 750)
+        setTimeout(randomize, 500)
     }
 }
 
