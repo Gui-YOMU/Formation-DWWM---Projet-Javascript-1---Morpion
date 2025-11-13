@@ -1,3 +1,5 @@
+// Récupération des objets du DOM
+
 let rulesDisplay = document.querySelector("#rules")
 let gameScreen = document.querySelector("#gameScreen")
 let gridDisplay = document.querySelector("#gridDisplay")
@@ -8,6 +10,9 @@ let scoreOpponentDisplay = document.querySelector("#scoreOpponent")
 let playerTwoNameContainer = document.querySelector("#playerTwoNameContainer")
 let titleOne = document.querySelector("h1")
 let titleTwo = document.querySelector("#connect4")
+
+//Mise en place des variables nécessaires au bon fonctionnement du code
+
 let connectFourHorizontalArray = [1, 2, 3, 4, 8, 9, 10, 11, 15, 16, 17, 18, 22, 23, 24, 25, 29, 30, 31, 32, 36, 37, 38, 39]
 let connectFourDiagonalArrayOne = [1, 2, 3, 4, 8, 9, 10, 11, 15, 16, 17, 18]
 let connectFourDiagonalArrayTwo = [4, 5, 6, 7, 11, 12, 13, 14, 18, 19, 20, 21]
@@ -23,8 +28,12 @@ let scorePlayer = 0
 let scoreOpponent = 0
 let victory = false
 
+// Cochage par défaut de certains paramètres
+
 document.querySelector("#computer").checked = true
 document.querySelector("#tictactoe").checked = true
+
+// Affichage différent selon les paramètres choisis
 
 document.querySelector("#player").addEventListener("click", () => {
     playerTwoNameContainer.style.display = "flex"
@@ -48,6 +57,8 @@ document.querySelector("#connectFour").addEventListener("click", () => {
     document.querySelector("#connectFourRules").style.display = "block"
 })
 
+// Implémentation des valeurs des paramètres choisis par l'utilisateur
+
 function settingsSet() {
     opponentType = document.querySelector("input[name=opponent]:checked").value
     if (opponentType === "player") {
@@ -65,6 +76,8 @@ function settingsSet() {
     }
 }
 
+// Création de la grille de morpion ou de puissance 4
+
 function gridCreation() {
     let square = 0
     gridDisplay.setAttribute("class", `${gridType}`)
@@ -72,6 +85,8 @@ function gridCreation() {
         square = document.createElement("div")
         square.setAttribute("id", `square${i + 1}`)
         gridDisplay.appendChild(square)
+
+        // Si morpion, ajout d'un event listener sur clic des cases
         if (gridType === "tictactoe") {
             square.addEventListener("click", function () {
                 if (player) {
@@ -97,6 +112,8 @@ function gridCreation() {
     }
 }
 
+// Si puissance 4, création des boutons de sélection des colonnes du jeu + event listener sur chaque bouton
+
 function buttonCreation() {
     let columnButton = 0
     if (gridType === "connectFour") {
@@ -112,17 +129,21 @@ function buttonCreation() {
     }
 }
 
+// Fonction qui vérifie si l'adversaire est l'ordinateur et déclenche la fonction aléatoire le cas échéant
+
 function opponentTurn() {
     if (opponentType === "computer") {
-        randomize()
+        setTimeout(randomize, 1000)
     }
 }
+
+// Fonction qui place le jeton de puissance 4 à l'emplacement disponible le plus bas de la colonne choisie
 
 function token(column) {
     for (let i = (column + 35); i >= 1; i = i - 7) {
         if (document.getElementById(`square${i}`).textContent === "") {
             if (player) {
-                document.getElementById(`square${i}`).textContent = "O"
+                document.getElementById(`square${i}`).textContent = "🟠"
                 document.getElementById(`square${i}`).style.color = "red"
                 connectFourVictoryCheck()
                 player = false
@@ -132,7 +153,7 @@ function token(column) {
                 }
                 break
             } else if (opponent) {
-                document.getElementById(`square${i}`).textContent = "O"
+                document.getElementById(`square${i}`).textContent = "🟡"
                 document.getElementById(`square${i}`).style.color = "yellow"
                 connectFourVictoryCheck()
                 opponent = false
@@ -146,6 +167,8 @@ function token(column) {
     }
 }
 
+// Fonction aléatoire de choix de la case (morpion) ou de la colonne (puissance 4) par l'ordinateur
+
 function randomize() {
     if (gridType === "tictactoe") {
         do {
@@ -157,12 +180,15 @@ function randomize() {
         return
     } else if (gridType === "connectFour") {
         computerChoice = Math.floor((Math.random() * 7) + 1)
+        console.log(computerChoice);
         if (victory == false) {
             document.getElementById(`button${computerChoice}`).click()
         }
         return
     }
 }
+
+// Event listener sur l'envoi du formulaire de sélection des paramètres et qui démarre la partie
 
 document.querySelector("#settings").addEventListener("submit", (e) => {
     e.preventDefault()
@@ -184,6 +210,8 @@ document.querySelector("#settings").addEventListener("submit", (e) => {
     }
 })
 
+// Event listener sur le bouton permettant de recommencer avec les mêmes paramètres à la fin d'une partie
+
 document.querySelector("#restart").addEventListener("click", () => {
     endWindow.close()
     gridDisplay.replaceChildren()
@@ -197,9 +225,13 @@ document.querySelector("#restart").addEventListener("click", () => {
     }
 })
 
+// Event listener sur le bouton permettant de retourner à l'accueil à la fin d'une partie
+
 document.querySelector("#home").addEventListener("click", () => {
     location.reload()
 })
+
+// Fonction qui vérifie l'alignement de 3 symboles sur la grille de morpion et déclenche la fin de partie le cas échéant
 
 function tictactoeVictoryCheck() {
     counter++
@@ -246,6 +278,8 @@ function tictactoeVictoryCheck() {
         }
     }
 }
+
+// Fonction qui vérifie l'alignement de 4 couleurs sur la grille de puissance 4 et déclenche la fin de partie le cas échéant
 
 function connectFourVictoryCheck() {
     counter++
@@ -300,6 +334,8 @@ function connectFourVictoryCheck() {
         return
     }
 }
+
+// Fonction de fin de partie avec affichage du vainqueur, incrémentation et affichage du score
 
 function endGame() {
     if (player) {
