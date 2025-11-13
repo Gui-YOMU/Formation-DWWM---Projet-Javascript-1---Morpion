@@ -16,6 +16,7 @@ let titleTwo = document.querySelector("#connect4")
 let connectFourHorizontalArray = [1, 2, 3, 4, 8, 9, 10, 11, 15, 16, 17, 18, 22, 23, 24, 25, 29, 30, 31, 32, 36, 37, 38, 39]
 let connectFourDiagonalArrayOne = [1, 2, 3, 4, 8, 9, 10, 11, 15, 16, 17, 18]
 let connectFourDiagonalArrayTwo = [4, 5, 6, 7, 11, 12, 13, 14, 18, 19, 20, 21]
+let availableColumns = []
 let counter = 0
 let opponentType = ""
 let gridType = ""
@@ -133,7 +134,7 @@ function buttonCreation() {
 
 function opponentTurn() {
     if (opponentType === "computer") {
-        setTimeout(randomize, 1000)
+        setTimeout(randomize, 750)
     }
 }
 
@@ -162,8 +163,16 @@ function token(column) {
             }
         }
     }
-    if (opponent) {
-        opponentTurn()
+}
+
+// Fonction qui vérifie les colonnes disponibles
+
+function columnCheck() {
+    availableColumns = []
+    for (let i = 1; i <= 7; i++) {
+        if (document.getElementById(`square${i}`).textContent === "") {
+            availableColumns.push(i)
+        }
     }
 }
 
@@ -179,8 +188,8 @@ function randomize() {
         }
         return
     } else if (gridType === "connectFour") {
-        computerChoice = Math.floor((Math.random() * 7) + 1)
-        console.log(computerChoice);
+        columnCheck()
+        computerChoice = availableColumns[Math.floor(Math.random() * availableColumns.length)]
         if (victory == false) {
             document.getElementById(`button${computerChoice}`).click()
         }
