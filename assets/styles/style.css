@@ -186,3 +186,72 @@ dialog div button#restart:hover {
 dialog div button#home:hover {
     background-color: red;
 }
+
+@media screen and (max-width: 1000px) {
+    header h1 {
+        font-size: 40px;
+    }
+
+    div#gridDisplay.tictactoe {
+        width: 225px;
+        grid-template-columns: repeat(3, 75px);
+        grid-template-rows: repeat(3, 75px);
+    }
+
+    div#gridDisplay.connectFour {
+        width: 245px;
+        grid-template-columns: repeat(7, 35px);
+        grid-template-rows: repeat(6, 35px);
+    }
+
+    div#gridDisplay.tictactoe div {
+        font-size: 50px;
+    }
+
+    div#gridDisplay.connectFour div {
+        font-size: 30px;
+    }
+
+    div#scoreDisplay p {
+        font-size: 20px;
+    }
+
+    div#buttonDisplay button {
+        height: 30px;
+        width: 30px;
+        margin: 3px;
+        font-size: 10px;
+    }
+}
+
+@media screen and (max-width: 524px) {
+    div#gameScreen {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    div#scoreDisplay {
+        width: 80%;
+        gap: 5px;
+    }
+
+    form div.settings {
+        flex-direction: column;
+        gap: 10px;
+        font-size: 15px;
+    }
+
+    article h2,
+    form h2 {
+        font-size: 20px;
+    }
+
+    article p {
+        font-size: 15px;
+    }
+
+    form #playerTwoNameContainer {
+        gap: 10px;
+        margin-top: 10px;
+    }
+}
